@@ -1,3 +1,22 @@
+-- what is the process:
+
+-- switches
+-- sw3 downto 0 is the hex nibble you are about to enter
+-- sw6 downto 4 selects which signature slot you are editing 0 to 7
+-- sw8 downto 7 selects the length 00 is 1 byte 01 is 2 bytes 10 is 3 bytes 11 is 4 bytes
+
+-- buttons
+-- btnu enters one nibble it shifts current_data left by 4 adds sw3 downto 0 and increases hex_count by 1
+-- if hex_count already reached the needed amount for the selected length then btnu does nothing
+-- btnl clears the buffer it sets current_data to 0 and sets hex_count to 0
+-- btnr writes it pulses cfg_we for one clock so cauid stores cfg_data into the selected cfg_index with the selected cfg_len
+-- btnd commits it sets exit_config to 1 and the cpu will leave x0 and start running
+-- btnc resets everything same idea as a full restart
+
+-- feedback
+-- 7 seg shows nibble on the right then index then length as 1 to 4 then hex_count on the left
+-- leds show nibble index length and count plus led13 toggles on every action led15 flashes on write and led14 stays on after commit
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
